@@ -1,4 +1,5 @@
 
+
 function init(){
 
 //toma nodos y declaraciones
@@ -17,20 +18,54 @@ function display_poke(pag){
     pag.results.forEach(element => {
         let carta = document.createElement("div");
         carta.setAttribute("class","carta");
-        carta.innerHTML=`${element.name}`;
+        let titulo_pokemon = document.createElement("h2");
+        titulo_pokemon.innerHTML=`${element.name}`;
+        titulo_pokemon.setAttribute("class","titulo_pokemon")
+        let boton_shiny = document.createElement("button");
+        boton_shiny.innerHTML=`Shiny`;
+        
+            
         ordenador_pokes.append(carta);
+        carta.append(titulo_pokemon);
+        
 
+        //cambiar url
         let url_poke=element.url;
+
+        //foto princ del pokemon
         fetch(url_poke)
         .then((poke)=>poke.json())
         .then((into)=>{
             let foto = document.createElement("img");
             foto.setAttribute("src",`${into.sprites.front_default}`);
             carta.append(foto);
-        })
+
+            foto.addEventListener("click",cambio_sprite);
+
+            let contador_clicks=0;
+            function cambio_sprite(){
+                contador_clicks++;
+                if(contador_clicks==1){
+                    foto.setAttribute("src",`${into.sprites.back_default}`);
+                }
+                else if(contador_clicks==2){
+                    foto.setAttribute("src",`${into.sprites.front_shiny}`);
+                }
+                else if(contador_clicks==3){
+                    foto.setAttribute("src",`${into.sprites.back_shiny}`);
+                }
+                else if (contador_clicks>=4){
+                    foto.setAttribute("src",`${into.sprites.front_default}`);
+                    contador_clicks=0;
+                }
+            }
+
+
+        
 
     });
-};
+    
+});
 
 //boton de cambio pagina
 
@@ -60,7 +95,7 @@ function cambio_pagina(){
     .then((pag)=>{
         display_poke(pag);
         url = pag.next;
-
 });
+}
 }
 }

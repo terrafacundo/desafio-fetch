@@ -1,0 +1,1 @@
+array_sprites_por_click = ["back_default","front_shiny","back_shiny","front_female","back_female","front_shiny_female","back_shiny_female"];
