@@ -1,101 +1,78 @@
 
 
 function init(){
-
-//toma nodos y declaraciones
-let ordenador_pokes = document.getElementById("contenedor_pokes");
-
-//llamando API
-let url ="https://pokeapi.co/api/v2/pokemon/";
-
-fetch(url)
-.then((pokes)=>pokes.json())
-.then((pag)=>{
-    display_poke(pag);
-});
-
-function display_poke(pag){
-    pag.results.forEach(element => {
-        let carta = document.createElement("div");
-        carta.setAttribute("class","carta");
-        let titulo_pokemon = document.createElement("h2");
-        titulo_pokemon.innerHTML=`${element.name}`;
-        titulo_pokemon.setAttribute("class","titulo_pokemon")
-        let boton_shiny = document.createElement("button");
-        boton_shiny.innerHTML=`Shiny`;
-        
-            
-        ordenador_pokes.append(carta);
-        carta.append(titulo_pokemon);
-        
-
-        //cambiar url
-        let url_poke=element.url;
-
-        //foto princ del pokemon
-        fetch(url_poke)
-        .then((poke)=>poke.json())
-        .then((into)=>{
-            let foto = document.createElement("img");
-            foto.setAttribute("src",`${into.sprites.front_default}`);
-            carta.append(foto);
-
-            foto.addEventListener("click",cambio_sprite);
-
-            let contador_clicks=0;
-            function cambio_sprite(){
-                contador_clicks++;
-                if(contador_clicks==1){
-                    foto.setAttribute("src",`${into.sprites.back_default}`);
-                }
-                else if(contador_clicks==2){
-                    foto.setAttribute("src",`${into.sprites.front_shiny}`);
-                }
-                else if(contador_clicks==3){
-                    foto.setAttribute("src",`${into.sprites.back_shiny}`);
-                }
-                else if (contador_clicks>=4){
-                    foto.setAttribute("src",`${into.sprites.front_default}`);
-                    contador_clicks=0;
-                }
-            }
+    //funcion base c/ el fetch
+function llamar_pokemon(id){
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+    .then(x=>x.json())
+    .then(datos=>{
+        creador_tarjetas(datos);
+    }
+    );}
 
 
-        
+function llamar_pokemones(numero){
+    for(i=1;i<numero;i++){
+        llamar_pokemon(i);
+    }
+}
 
-    });
+llamar_pokemones(50);
+
+//tarjetas
+let contenedor_pokes= document.getElementById("contenedor_pokes");
+
+function creador_tarjetas(x){
+    let contenedor = document.createElement("div");
+    //declaracion
+    let nombre = document.createElement("h3");
+    let indice =document.createElement("h3");
+    let foto =document.createElement("div");
+    let sprite= document.createElement("img");
+    //asignacion
     
-});
+    nombre.innerHTML=`${x.name}`;
+    indice.innerHTML=`#${x.id}`;
 
-//boton de cambio pagina
+    //atributos
+    nombre.setAttribute("class","titulo_pokes");
+    indice.setAttribute("class","indice")
+    contenedor.setAttribute("class","carta");
+    foto.setAttribute("class","foto_contenedor_poke");
+    sprite.setAttribute("src",`${x.sprites.front_default}`);
+    sprite.setAttribute("class","sprite");
+    
 
-const boton_anterior = document.getElementById("anterior");
-const boton_siguiente =document.getElementById("siguiente");
+    //impresion
+    contenedor_pokes.append(contenedor);
+    foto.append(sprite);
+    contenedor.append(nombre,indice,foto);
 
-boton_anterior.addEventListener("click",cambio_pagina_atras);
-boton_siguiente.addEventListener("click",cambio_pagina);
-
-function cambio_pagina_atras(){
-    ordenador_pokes.innerHTML="";
-    fetch(url)
-    .then((pokes)=>pokes.json())
-    .then((pag)=>{
-        display_poke(pag);
-        url = pag.previous;
-        if (url == null){
-            ordenador_pokes.innerHTML=`<h2>"Error en la PókeDexx, refresca la página.</h2>`
+    //comportamientos
+    foto.addEventListener("click",seleccion_sprites);
+    let contador_clicks=0;
+    function seleccion_sprites(){
+        contador_clicks++;
+        if(contador_clicks==1){
+            sprite.setAttribute("src",`${x.sprites.back_default}`);
         }
-});
+        else if(contador_clicks==2){
+            sprite.setAttribute("src",`${x.sprites.front_shiny}`);
+        }
+        else if(contador_clicks==3){
+            sprite.setAttribute("src",`${x.sprites.back_shiny}`);
+        }
+        else{
+            sprite.setAttribute("src",`${x.sprites.front_default}`);
+            contador_clicks=0;
+        }
+
+    }
+
+    //coloreo de tarjeta
+
 }
 
-function cambio_pagina(){
-    ordenador_pokes.innerHTML="";
-    fetch(url)
-    .then((pokes)=>pokes.json())
-    .then((pag)=>{
-        display_poke(pag);
-        url = pag.next;
-});
-}
-}
+
+
 }
