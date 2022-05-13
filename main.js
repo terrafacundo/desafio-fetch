@@ -44,35 +44,43 @@ function creador_tarjetas(x){
 
     let contenedor_stat=document.createElement("div");
     let barra_progreso = document.createElement("div");
-    let stat1 = document.createElement("h3");
-        stat1.innerHTML=`Hp`
-    let stat2 = document.createElement("h3");
-        stat2.innerHTML=`Attack`
-    let stat3 = document.createElement("h3");
-        stat3.innerHTML=`Defense`
-
+    let stat1 = document.createElement("div");
+        stat1.innerHTML=`Hp ${x.stats[0].base_stat}`;
+    let stat2 = document.createElement("div");
+        stat2.innerHTML=`Attack ${x.stats[1].base_stat}`;
+    let stat3 = document.createElement("div");
+        stat3.innerHTML=`Defense ${x.stats[2].base_stat}`;
+    let stat4 = document.createElement("div");
+        stat4.innerHTML=`Special-Attack: ${x.stats[3].base_stat}`;
+    let stat5 = document.createElement("div");
+        stat5.innerHTML=`Speed: ${x.stats[5].base_stat}`;
 
     //funcion progreso
 
+    
+    //impresion
+    contenedor_pokes.append(contenedor)
+    foto.append(sprite);
+    contenedor_stat.append(stat1,stat2,stat3,stat4,stat5);
+    contenedor.append(nombre,indice,foto,contenedor_stat);
 
     //atributos
     nombre.setAttribute("class","titulo_pokes");
     indice.setAttribute("class","indice")
     contenedor.setAttribute("class","carta")
     contenedor.style.backgroundColor=color;
+    contenedor_stat.setAttribute("class","contenedor_stats");
     foto.setAttribute("class","foto_contenedor_poke");
     sprite.setAttribute("src",`${x.sprites.front_default}`);
     sprite.setAttribute("class","sprite");  
     stat1.setAttribute("class","stats");
     stat2.setAttribute("class","stats");
     stat3.setAttribute("class","stats");
+    stat4.setAttribute("class","stats");
+    stat5.setAttribute("class","stats")
+    
 
 
-    //impresion
-    contenedor_pokes.append(contenedor)
-    foto.append(sprite);
-    contenedor_stat.append(stat1,stat2,stat3)
-    contenedor.append(nombre,indice,foto,contenedor_stat);
 
 
     //comportamientos
@@ -93,9 +101,8 @@ function creador_tarjetas(x){
             sprite.setAttribute("src",`${x.sprites.front_default}`);
             contador_clicks=0;
         }
-
     }
-
+    
 
 }
 
