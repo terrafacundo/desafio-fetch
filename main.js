@@ -17,7 +17,7 @@ function llamar_pokemones(numero){
     }
 }
 
-llamar_pokemones(150);
+llamar_pokemones(1000);
 
 //tarjetas
 let contenedor_pokes= document.getElementById("contenedor_pokes");
@@ -45,11 +45,11 @@ function creador_tarjetas(x){
     let contenedor_stat=document.createElement("div");
     let barra_progreso = document.createElement("div");
     let stat1 = document.createElement("div");
-        stat1.innerHTML=`Hp ${x.stats[0].base_stat}`;
+        stat1.innerHTML=`Hp: ${x.stats[0].base_stat}`;
     let stat2 = document.createElement("div");
-        stat2.innerHTML=`Attack ${x.stats[1].base_stat}`;
+        stat2.innerHTML=`Attack: ${x.stats[1].base_stat}`;
     let stat3 = document.createElement("div");
-        stat3.innerHTML=`Defense ${x.stats[2].base_stat}`;
+        stat3.innerHTML=`Defense: ${x.stats[2].base_stat}`;
     let stat4 = document.createElement("div");
         stat4.innerHTML=`Special-Attack: ${x.stats[3].base_stat}`;
     let stat5 = document.createElement("div");
