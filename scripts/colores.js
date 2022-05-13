@@ -18,3 +18,5 @@ const colours = {
 	steel: '#B7B7CE',
 	fairy: '#D685AD',
 };
+
+const llaves_colores = Object.keys(colours);

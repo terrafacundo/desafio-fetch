@@ -1,6 +1,12 @@
 *{
     font-family: 'Roboto Mono', monospace;
 }
+*:before,
+*:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
 #contenedor_pokes{
     display: flex;
@@ -14,9 +20,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30vw;
-    height: 25vh;
-    background-color:#fdfdfd;
+    width: 15vw;
+    height: 50vh;
+    border: solid 0.5px;
+    box-shadow: -5px 2.5px 5px 5px rgb(182, 182, 182);
     font-weight: 600;
     font-size: 1.2rem;
     border-radius: 5px;
@@ -66,4 +73,30 @@
 
 .sprite{
     transform:scale(0.6,0.6)
+}
+
+/*barra progreso stats*/
+.stats {
+    padding-left: 2vw;
+    font-size: 0.8rem;
+	background-color: #d8d8d8;
+	border-radius: 50px;
+	position: relative;
+	margin: 15px 0;
+	height: 3vh;
+	width: 10vw;
+}
+
+.progress-done {
+	background: linear-gradient(to left, #F2709C, #FF9472);
+	box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
 }
