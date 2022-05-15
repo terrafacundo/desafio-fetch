@@ -11,13 +11,45 @@ function llamar_pokemon(id){
     );}
 
 
-function llamar_pokemones(numero){
-    for(i=1;i<numero;i++){
+//pagination
+let offset=1;
+let limit=9;
+let siguiente = document.getElementById("siguiente");
+siguiente.addEventListener("click",siguiente_pag);
+
+function siguiente_pag(){
+    console.log("siguiente")
+    contenedor_pokes.innerHTML="";
+    offset+=9;
+    llamar_pokemones(offset,limit);
+}
+
+let anterior = document.getElementById("anterior");
+anterior.addEventListener("click",anterior_pag);
+
+function anterior_pag(){
+    console.log("anterior")
+    contenedor_pokes.innerHTML="";
+    if(offset != 1){
+        offset-=9;
+    }
+    llamar_pokemones(offset,limit);
+}
+
+
+
+
+//llamado a los pokemones
+function llamar_pokemones(offset,limit){
+    for(i=offset;i<offset + limit;i++){
         llamar_pokemon(i);
     }
 }
 
-llamar_pokemones(1000);
+llamar_pokemones(offset,limit);
+
+
+
 
 //tarjetas
 let contenedor_pokes= document.getElementById("contenedor_pokes");
@@ -43,7 +75,8 @@ function creador_tarjetas(x){
     let color = colours[tipo_pokemon];
 
     let contenedor_stat=document.createElement("div");
-    let barra_progreso = document.createElement("div");
+    let stat0= document.createElement("div");
+        stat0.innerHTML=`Type: ${x.types[0].type.name}`
     let stat1 = document.createElement("div");
         stat1.innerHTML=`Hp: ${x.stats[0].base_stat}`;
     let stat2 = document.createElement("div");
@@ -59,9 +92,9 @@ function creador_tarjetas(x){
 
     
     //impresion
-    contenedor_pokes.append(contenedor)
+    contenedor_pokes.append(contenedor);
     foto.append(sprite);
-    contenedor_stat.append(stat1,stat2,stat3,stat4,stat5);
+    contenedor_stat.append(stat0,stat1,stat2,stat3,stat4,stat5);
     contenedor.append(nombre,indice,foto,contenedor_stat);
 
     //atributos

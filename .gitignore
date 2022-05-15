@@ -1,3 +1,4 @@
 package-lock.json
 package.json
 node_modules
+./scripts/array_sprites.js
